@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject popupMenu; // Referencja do obiektu menu pauzy
+    public GameObject popupMenu; 
 
     private bool isPaused = false;
 
@@ -11,12 +11,14 @@ public class PauseMenu : MonoBehaviour
     {
         if (popupMenu != null)
         {
-            popupMenu.SetActive(false); // Ustaw menu pauzy jako niewidoczne na starcie
+            popupMenu.SetActive(false); 
         }
         else
         {
             Debug.LogError("Popup Menu is not assigned.");
         }
+
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -33,22 +35,13 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        // Sprawdzamy, czy menu pauzy jest aktywne, aby odpowiednio ustawiaæ widocznoœæ kursora myszy
-        if (isPaused)
-        {
-            Cursor.visible = true; // Kursor jest widoczny, gdy menu pauzy jest otwarte
-        }
-        else
-        {
-            Cursor.visible = false; // Kursor jest ukryty, gdy gra jest w trybie normalnym
-        }
+        Cursor.visible = isPaused; 
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
         popupMenu.SetActive(true);
         isPaused = true;
     }
@@ -58,19 +51,18 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         popupMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         isPaused = false;
     }
 
     public void QuitGame()
     {
-        // Wczytaj ponownie scenê "1" z zachowaniem obiektów i skryptów
+        Time.timeScale = 1; 
         SceneManager.LoadScene("1", LoadSceneMode.Single);
     }
 
     public void Menu()
     {
-        // Wczytaj ponownie scenê "1" z zachowaniem obiektów i skryptów
+        Time.timeScale = 1; 
         SceneManager.LoadScene("1", LoadSceneMode.Single);
     }
 }
